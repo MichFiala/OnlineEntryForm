@@ -18,24 +18,12 @@ namespace Api.Controllers
                _exportFormService = exportFormService;
 			_entryFormService = entryFormService;
 		}
-		[HttpGet()]
-		public async Task<IActionResult> GetForm()
+		[HttpPost]
+		public async Task<IActionResult> PersistForm(Application.Models.EntryFormValues formValues)
 		{
 			try
 			{
-				var persitedModel = await _entryFormService.Persist(
-					new Application.Models.EntryFormValues
-					(
-						"M",
-						"F",
-						"96",
-						DateTime.Now,
-						Application.Models.Gender.Male,
-						"ss",
-						Application.Models.Nationality.Czech,
-						true
-					)
-				);
+				var persitedModel = await _entryFormService.Persist(formValues);
 
 				await _exportFormService.Export(persitedModel);
 
