@@ -12,28 +12,40 @@ namespace Api.Controllers
 	public class FormController : ControllerBase
 	{
 		private readonly IEntryFormService _entryFormService;
-		public FormController(IEntryFormService entryFormService)
+          private readonly IEntryFormExportService _exportFormService;
+		public FormController(IEntryFormService entryFormService, IEntryFormExportService exportFormService)
 		{
+               _exportFormService = exportFormService;
 			_entryFormService = entryFormService;
 		}
 		[HttpGet()]
 		public async Task<IActionResult> GetForm()
 		{
-			var persited = await _entryFormService.Persist(
-			    new Application.Models.EntryFormValues
-			    (
-				   "M",
-				   "F",
-				   "96",
-				   DateTime.Now,
-				   Application.Models.Gender.Male,
-				   "ss",
-				   Application.Models.Nationality.Czech,
-				   true
-			    )
-			);
+			try
+			{
+				var persitedModel = await _entryFormService.Persist(
+					new Application.Models.EntryFormValues
+					(
+						"M",
+						"F",
+						"96",
+						DateTime.Now,
+						Application.Models.Gender.Male,
+						"ss",
+						Application.Models.Nationality.Czech,
+						true
+					)
+				);
 
-			return Ok();
+				await _exportFormService.Export(persitedModel);
+
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+				// Log
+			}
 		}
 	}
 }

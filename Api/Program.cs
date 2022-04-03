@@ -21,6 +21,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 });
 
 builder.Services.AddScoped<IEntryFormService, EntryFormService>();
+builder.Services.AddScoped<IEntryFormExportService, EntryFormExportService>();
 
 var app = builder.Build();
 

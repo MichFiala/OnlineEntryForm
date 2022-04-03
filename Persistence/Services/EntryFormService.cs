@@ -24,13 +24,14 @@ namespace Persistence.Services
 				Nationality = values.Nationality,
 				AgreementGDPR = values.AgreementGDPR
 			};
+
 			await _dataContext.EntryForms.AddAsync(dbModel);
 
 			await _dataContext.SaveChangesAsync();
-            // Mapper to bussines model should be used here
+			// Mapper to bussines model should be used here
 			return new Application.Models.EntryForm
 			(
-                dbModel.Id,
+			 dbModel.Id,
 				dbModel.FirstName,
 				dbModel.LastName,
 				dbModel.PersonalIdentificationNumber,
@@ -39,7 +40,7 @@ namespace Persistence.Services
 				dbModel.Email,
 				dbModel.Nationality,
 				dbModel.AgreementGDPR
-            );
+		  );
 		}
 	}
 }
