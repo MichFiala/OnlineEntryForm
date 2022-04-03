@@ -1,6 +1,7 @@
 namespace Application.Models
 {
 	public record EntryForm(
+	   Guid Id,	
 	   string FirstName,
 	   string LastName,
 	   string PersonalIdentificationNumber,

@@ -1,5 +1,7 @@
+using Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Persistence.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +20,14 @@ builder.Services.AddDbContext<DataContext>(opt =>
 	opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddScoped<IEntryFormService, EntryFormService>();
+
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
 
 var services = scope.ServiceProvider;
-
+// Migrate database on run
 services.GetRequiredService<DataContext>().Database.Migrate();
 
 // Configure the HTTP request pipeline.
