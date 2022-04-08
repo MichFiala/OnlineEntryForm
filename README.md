@@ -36,6 +36,6 @@ For managing language simple store was created using mobX.
     
 ## See exported forms
 
-  cd .\exports
+     cd .\exports
   
-  ls 
+     ls or dir
