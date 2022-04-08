@@ -5,7 +5,7 @@ export class FormValues {
      firstName: string = '';
      lastName: string = '';
      personalIdentificationNumber: string = '';
-     birthDate: Date | null = null;
+     birthDate: Date = new Date();
      gender: Gender = 0;
      email: string = '';
      nationality: Nationality = 0;

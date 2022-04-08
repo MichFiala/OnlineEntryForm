@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-	
+
 builder.Services.AddDbContext<DataContext>(opt =>
 {
 	// Use connection.
@@ -22,6 +22,16 @@ builder.Services.AddDbContext<DataContext>(opt =>
 
 builder.Services.AddScoped<IEntryFormService, EntryFormService>();
 builder.Services.AddScoped<IEntryFormExportService, EntryFormExportService>();
+builder.Services.AddCors(opt =>
+	opt.AddPolicy("CorsPolicy", policy =>
+	{
+		policy
+			.AllowAnyMethod()
+			.AllowAnyHeader()
+			.AllowCredentials()
+			.WithOrigins("http://localhost:3000");
+	})
+);
 
 var app = builder.Build();
 
@@ -38,10 +48,15 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+});
 
 app.Run();

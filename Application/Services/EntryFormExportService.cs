@@ -5,6 +5,7 @@ namespace Application.Services
 {
 	public class EntryFormExportService : IEntryFormExportService
 	{
+		// Should be in configuration, but for this example kept here
 		private const string ExportPath = "../exports/";
 		public async Task Export(EntryForm entryForm)
 		{
