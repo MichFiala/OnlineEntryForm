@@ -10,7 +10,9 @@ The file should be created by migration after first api run automatically.
 
 Web api has one endpoint for post of filled form.
 The filled form is persisted and exported into folder exports as json file.
-The folder should be created automatically after first form is filled.
+The folder should be created automatically after first form is filled. For now path to folder is hard coded in EntryFormExportService.cs (Path should be defined in config)
+
+
 
 ## Client
 
